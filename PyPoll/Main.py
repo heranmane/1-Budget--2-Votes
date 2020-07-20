@@ -2,59 +2,86 @@ import os
 import csv
 
 csvpath = r"/Users/williammdavis/Repository/gwu-arl-data-pt-06-2020-u-c/02-Homework/03-Python/Instructions/PyPoll/Resources/election_data.csv"
-num_votes= 0
-candidate_list = []
-candidate_votes={}
-votes ={}
 
-winner_candidate=""
-winner_num={}
+num_votes = 0
+#candidate_list = []
+# candidate_votes = {}
 
+#votes = {}
+Otooley_votes = 0
+Correy_votes = 0
+Khan_votes = 0
+Li_votes = 0
 
+#winner_candidate = ""
+#winner_num = {}
+
+output_file = r"/Users/williammdavis/Repository/gwu-arl-data-pt-06-2020-u-c/02-Homework/03-Python/Instructions/PyPoll/Resources/election_results.txt"
 
 with open(csvpath) as csvfile:
-
     # CSV reader specifies delimiter and variable that holds contents
     csvreader = csv.reader(csvfile)
-
-    print(csvreader)
-
-    # Read the header row first (skip this step if there is now header)
+    # read csv and skip header
     csv_header = next(csvreader)
-    #print(f"CSV Header: {csv_header}")
-
+    print(csv_header)
     for row in csvreader:
-            num_votes +=1
-            candidate_name= row[2]
-            if candidate_name not in candidate_list:
-                    #add names to list
-                    candidate_list.append(candidate_name)
-                    #set the dictionary
-                    candidate_votes[candidate_name]=0
-                    #add votes to candidate
-                    candidate_votes[candidate_name]=candidate_votes[candidate_name]+1
-                    print(candidate_votes)
-    
-    for candidate in candidate_votes:
-            print([candidate])
-            votes=candidate_votes(candidate)
-            votes_percentage = float(votes) / float(num_votes) * 100
-            print(votes_percentage)
-            if (votes>winner_num):
-                    winner_num = votes
-                    winner_candidate = candidate
-                    print(str(winner_candidate))
+        num_votes = num_votes + 1
+        # print(num_votes)
+        candidate_name = row[2]
+        if (row[2]) == "Khan":
+            Khan_votes += 1
+        elif (row[2]) == "O'Tooley":
+            Otooley_votes += 1
+        elif (row[2]) == "Correy":
+            Correy_votes += 1
+        else:
+            Li_votes += 1
+    #test: print(Khan_votes)
 
-                        
+    # percentage votes = candidate vote/total vote *100
+    K_percentage_vote = float(Khan_votes) / float(num_votes) * 100
+    O_percentage_vote = float(Otooley_votes) / float(num_votes) * 100
+    C_percentage_vote = float(Correy_votes) / float(num_votes) * 100
+    L_percentage_vote = float(Li_votes) / float(num_votes) * 100
 
-            
-#print results
-print("Election Results")
-print("------------------------") 
-        print(f"Total Votes: " + str(num_votes))
-print("------------------------") 
-        print(f"{candidate}: {votes_percentage}% {votes}")
-        #print(f"Winner: {winner_candidate})
-           
-            
-        
+    #test: print(L_percentage_vote)
+
+    winner_candidate = max(Khan_votes, Otooley_votes, Correy_votes, Li_votes)
+
+if winner_candidate == Khan_votes:
+        winner_candidate =  "Khan"
+elif winner_candidate == Otooley_votes:
+        winner_candidate = "O'Tooley"
+elif winner_candidate == Correy_votes:
+        winner_candidate = "Correy"
+else:
+        winner_candidate = "Li"
+#print(winner_candidate)
+
+# print("Election Results")
+# print("------------------------")
+# print("Total Votes:" + str(num_votes))
+# print("------------------------")
+# print("Khan: " + str(Khan_votes)+ "   "  + str(K_percentage_vote)+ "%")
+# print("Li: " + str(Li_votes)+ "   "  + str(L_percentage_vote)+ "%")
+# print("O'Tooley: " + str(Otooley_votes)+ "   " + str(O_percentage_vote)+"%" )
+# print("Correy:" + str(Correy_votes) + "   " + str(C_percentage_vote) + "%")
+# print("------------------------")
+# print("winnner: " +(winner_candidate))
+
+with open(output_file, "w") as txt_file:
+
+    results = (
+        f"Election Results\n"
+        f"-------------------------\n"
+        f"Total Votes: {total_votes}\n"
+        f"-------------------------\n"
+        f"O'Tooley: {Otooley_votes} {O_percentage_vote}\n"
+        f"Correy: {Correy_votes} {C_percentage_vote}\n"
+        f"Li: {Li_votes} {L_percentage_vote}\n"
+        f"Winner: {winner_candidate}"
+        )
+print(results)
+txt_file.write(results)
+
+
