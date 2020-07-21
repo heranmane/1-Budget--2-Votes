@@ -5,7 +5,7 @@ csvpath = r"/Users/williammdavis/Repository/gwu-arl-data-pt-06-2020-u-c/02-Homew
 
 num_votes = 0
 #candidate_list = []
-# candidate_votes = {}
+#candidate_votes = {}
 
 #votes = {}
 Otooley_votes = 0
@@ -49,7 +49,7 @@ with open(csvpath) as csvfile:
     winner_candidate = max(Khan_votes, Otooley_votes, Correy_votes, Li_votes)
 
 if winner_candidate == Khan_votes:
-        winner_candidate =  "Khan"
+        winner_candidate = "Khan"
 elif winner_candidate == Otooley_votes:
         winner_candidate = "O'Tooley"
 elif winner_candidate == Correy_votes:
@@ -69,19 +69,23 @@ else:
 # print("------------------------")
 # print("winnner: " +(winner_candidate))
 
-with open(output_file, "w") as txt_file:
+#write data to csv file
 
-    results = (
-        f"Election Results\n"
-        f"-------------------------\n"
-        f"Total Votes: {total_votes}\n"
-        f"-------------------------\n"
-        f"O'Tooley: {Otooley_votes} {O_percentage_vote}\n"
-        f"Correy: {Correy_votes} {C_percentage_vote}\n"
-        f"Li: {Li_votes} {L_percentage_vote}\n"
-        f"Winner: {winner_candidate}"
-        )
+
+results = (
+    f"Election Results\n"
+    f"-------------------------\n"
+    f"Total Votes: {num_votes}\n"
+    f"-------------------------\n"
+    f"O'Tooley: {Otooley_votes} {O_percentage_vote:.2f}%\n"
+    f"Correy: {Correy_votes} {C_percentage_vote:.2f}%\n"
+    f"Li: {Li_votes} {L_percentage_vote:.2f}%\n"
+    f"Khan: {Khan_votes} {K_percentage_vote:.2f}%\n"
+    f"Winner: {winner_candidate}"
+)
 print(results)
-txt_file.write(results)
+with open(output_file, "w") as txt_file:
+    txt_file.write("results")
+
 
 

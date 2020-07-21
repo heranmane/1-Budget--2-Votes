@@ -48,9 +48,9 @@ print("Greatest Decrease:" + str(greates_decrease))
 
     
 results = (
-    #f"Election Results\n"
+    f"Election Results\n"
     f"-------------------------\n"
-    f"Total Months: + {len(date)})\n"
+    f"Total Votes: {dates}\n"
     f"Total $: {profit_loss}\n"
     f"Total Average Changes: {average_change}\n"
     f"Greatest Increase: {greatest_increасеse}\n"
